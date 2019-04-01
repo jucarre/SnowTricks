@@ -26,7 +26,7 @@ class HomeController extends AbstractController
     }
 
     /**
-     * @Route("/{trick<\d+>?5}", name="load_more_trick")
+     * @Route("/{trick<\d+>?15}", name="load_more_trick")
      */
     public function loadMoreTrick(TrickRepository $trickRepo, $trick = 5)
     {

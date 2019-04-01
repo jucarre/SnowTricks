@@ -37,7 +37,7 @@
                     </div>
                 </div>
                 <div class="container">
-                    <div class="row mb-5">
+                    <div class="row mb-5 "id="rowPictureAndVideo">
                         {% for picture in trick.pictures %}
                             <div class="col-md-3 col-sm-5 portfolio-item">
                                 <a class="portfolio-link" data-toggle="modal"
@@ -68,6 +68,9 @@
                             </div>
                         {% endfor %}
 
+                    </div>
+                    <div class="row text-center" id="showPictureAndVideo">
+                        <button class="btn btn-primary col-8 mb-4">Voir les images et videos</button>
                     </div>
                     <div class="row">
 
@@ -226,5 +229,11 @@
         }
 
         document.getElementById('loadMoreBTN').addEventListener('click', loadMore);
+
+
+        $("#showPictureAndVideo").click(function() {
+            $("#rowPictureAndVideo").show();
+            $("#showPictureAndVideo").hide();
+        });
     </script>
 {% endblock %}
