@@ -25,9 +25,6 @@
             <a href="{{ path('add_trick') }}"
                class="list-group-item list-group-item-action {{ app.request.get('_route') == 'add_trick' ? 'active' }}">
                 Ajouter trick</a>
-            <a href="{{ path('delete_account', {'email': app.user.email}) }}"
-               class="list-group-item list-group-item-action list-group-item-danger">
-                Supprimer votre compte</a>
         </div>
     </div>
 {% endblock %}

@@ -225,28 +225,4 @@ class AccountController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/account/delete/{email}", name="delete_account")
-     */
-    public function deleteAccount(EntityManagerInterface $manager, $email)
-    {
-        if ($email === $this->getUser()->getEmail()) {
-            $manager->remove($this->getUser());
-
-            $manager->flush();
-
-            $this->addFlash(
-                'danger',
-                'Votre compte à bien été supprimer !'
-            );
-            return $this->redirectToRoute('logout');
-        } else {
-            $this->addFlash(
-                'danger',
-                'Vous ne pouvez pas supprimer le compte de quelqu\'un d\'autre! ^^'
-            );
-            return $this->redirectToRoute('home');
-        }
-
-    }
 }
