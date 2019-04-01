@@ -30,7 +30,7 @@ class TrickFixtures extends Fixture implements DependentFixtureInterface
                 ->addVideo($this->getReference('video-'. mt_rand(1, 20)))
                 ->addPicture($this->getReference('picture-'. mt_rand(1, 30)))
                 ->addVideo($this->getReference('video-'. mt_rand(1, 20)))
-                ->setTrickCategory($this->getReference('category-'. mt_rand(1, 6)))
+                ->setTrickCategory($this->getReference('category-'. mt_rand(1, 7)))
                 ->setUser($this->getReference('user-'.mt_rand(1, 2)))
             ;
 

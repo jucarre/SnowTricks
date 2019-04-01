@@ -10,24 +10,26 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class ProfilePictureFixtures extends Fixture
 {
+    private $directoryProfilePictures;
+
     private $targetDirectory;
 
-    public function __construct($targetDirectory)
+    public function __construct( $directoryProfilePictures, $targetDirectory)
     {
+        $this->directoryProfilePictures = $directoryProfilePictures;
         $this->targetDirectory = $targetDirectory;
-
     }
 
     public function load(ObjectManager $manager)
     {
         for ($a = 1; $a <= 2; $a++) {
             $profilePicture = new ProfilePicture;
-            $path = $this->targetDirectory;
-            copy($path.'/bob-'.$a.'.jpeg', $path.'/bob-'.$a.'-copy.jpeg');
 
-            $profilePicture->setTargetDirectory($path);
+            copy($this->directoryProfilePictures.'/bob-'.$a.'.jpeg', $this->targetDirectory.'/bob-'.$a.'.jpeg');
 
-            $file = new UploadedFile($path.'/bob-'.$a.'-copy.jpeg', 'bob-'.$a, null, null, null, true);
+            $profilePicture->setTargetDirectory($this->targetDirectory);
+
+            $file = new UploadedFile($this->targetDirectory.'/bob-'.$a.'.jpeg', 'bob-'.$a, null, null, null, true);
 
             $profilePicture->setFile($file);
 
