@@ -14,16 +14,16 @@
                 {% block menu %}
                     {{ parent() }}
                 {% endblock %}
-                <div class="col-md-6 col-sm-12">
+                <div class="col-md-9 col-sm-12">
                     <div class="card  ml-auto mr-auto">
 
                         <div class="media-body ">
                             <div class="card-body">
                                 <div class="card-text">
                                     <div class="form-group">
-                                        <h3 class="mb-5 mt-4">Photo de profile
+                                        <h3 class="mb-5 mt-4">Photo de profil
                                             {% if form.vars.value.pathPicture is defined %}
-                                            <img class="float-right mr-3 rounded-circle embed-responsive"
+                                            <img class="float-right mr-1 rounded-circle embed-responsive"
                                                  src="{{ asset('uploads/pictures/'~ form.vars.value.pathPicture) }}"
                                                  style="max-width: 65px;"
                                                  alt="...">

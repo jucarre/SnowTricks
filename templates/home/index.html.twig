@@ -26,8 +26,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h2 class="section-heading text-uppercase">Vos derniers tricks</h2>
-                    <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+                    <h2 class="section-heading text-uppercase mb-5">Les dernières publications :</h2>
                 </div>
             </div>
             <div class="row" id="trickList">
@@ -80,7 +79,7 @@
         function loadMore(event) {
             event.preventDefault();
             click++;
-            let trick = 5 * click;
+            let trick = 15 * click;
             const url = "{{ path('load_more_trick') }}" + trick;
             axios.get(url).then(function (response) {
                 $("#trickList").append(response.data);

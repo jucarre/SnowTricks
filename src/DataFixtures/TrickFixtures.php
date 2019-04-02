@@ -20,7 +20,7 @@ class TrickFixtures extends Fixture implements DependentFixtureInterface
 
             $trick = new Trick();
 
-            $content = '<p>' . join([$faker->paragraph(10)], '</p><p>') . '</p>';
+            $content = '<p>' . join([$faker->paragraph(15)], '</p><p>') . '</p>';
 
             $trick->setName($faker->sentence())
                 ->setContent($content)

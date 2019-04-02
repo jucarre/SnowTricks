@@ -14,7 +14,7 @@
             {% else %}
                 <a href="{{ path('add_picture_user') }}"
                    class="list-group-item list-group-item-action {{ app.request.get('_route') == 'add_picture_user' ? 'active' }}">
-                    Photo profile</a>
+                    Photo profil</a>
             {% endif %}
             <a href="{{ path('add_picture') }}"
                class="list-group-item list-group-item-action {{ app.request.get('_route') == 'add_picture' ? 'active' }}">
@@ -24,7 +24,7 @@
                 Gérer vidéos</a>
             <a href="{{ path('add_trick') }}"
                class="list-group-item list-group-item-action {{ app.request.get('_route') == 'add_trick' ? 'active' }}">
-                Ajouter trick</a>
+                Ajouter une figure</a>
         </div>
     </div>
 {% endblock %}

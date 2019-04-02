@@ -20,7 +20,7 @@ class HomeController extends AbstractController
     public function index(TrickRepository $trickRepo)
     {
         return $this->render('home/index.html.twig', [
-                'tricks' => $trickRepo->findBy([], ['dateCreation' => 'DESC'], 5, 0),
+                'tricks' => $trickRepo->findBy([], ['dateCreation' => 'DESC'], 15, 0),
             ]
         );
     }
@@ -28,10 +28,10 @@ class HomeController extends AbstractController
     /**
      * @Route("/{trick<\d+>?15}", name="load_more_trick")
      */
-    public function loadMoreTrick(TrickRepository $trickRepo, $trick = 5)
+    public function loadMoreTrick(TrickRepository $trickRepo, $trick = 15)
     {
         return $this->render('home/load_more.html.twig', [
-                'tricks' => $trickRepo->findBy([], ['dateCreation' => 'DESC'], 5, $trick),
+                'tricks' => $trickRepo->findBy([], ['dateCreation' => 'DESC'], 15, $trick),
             ]
         );
     }
