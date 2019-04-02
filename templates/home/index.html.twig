@@ -31,7 +31,9 @@
             </div>
             <div class="row" id="trickList">
                 {% for trick in tricks %}
-                    <div class="col-md-3 col-sm-6 portfolio-item">
+                    <div class="col-md-3 col-sm-6 portfolio-item trickparent"
+                         data-idtrick="{{ trick.id }}"
+                         data-link="{{ path('delete_trick', {'id': trick.id}) }}">
                         <a class="portfolio-link" data-toggle="modal" href="{{ path('show', {'id': trick.id}) }}">
                             <div class="portfolio-hover">
                                 <div class="portfolio-hover-content">
@@ -49,7 +51,7 @@
                                     </a>
                                 {% endif %}
                                 {% if is_granted('DELETE', trick) %}
-                                    <a href="{{ path('delete_trick', {'id': trick.id}) }}">
+                                    <a class="suppr-trick float-right" href="#">
                                         <i class="fas fa-trash-alt"></i>
                                     </a>
                                 {% endif %}
@@ -57,6 +59,36 @@
                         </div>
                     </div>
                 {% endfor %}
+                <div class="modal" tabindex="-1" role="dialog">
+                    <div class="modal-dialog" style="margin-top: 100px; display: none;"
+                         role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Comfirmer votre action</h5>
+                                <button type="button" class="close close-spe"
+                                        data-dismiss="modal"
+                                        aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <p>Voulez-vous supprimer votre figure id:
+                                    <spam class="info-data"></spam>
+                                </p>
+                            </div>
+                            <div class="modal-footer">
+                                <a class="link-delete" href="">
+                                    <button type="button" class="btn btn-primary">
+                                        supprimer
+                                    </button>
+                                </a>
+                                <button type="button" class="btn btn-secondary close-spe"
+                                        data-dismiss="modal">Annuler
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="row">
                 <a class="m-auto" id="loadMoreBTN">
@@ -96,5 +128,32 @@
         }
 
         document.getElementById('loadMoreBTN').addEventListener('click', loadMore);
+
+        $(function () {
+            //Comfirmation de supprétion(Boutton 'OUI' ou 'NON' )
+            $('.suppr-trick').click(function () {
+                event.preventDefault();
+
+                var idData = $(this).parents('.trickparent').data('idtrick');
+                $('.info-data').text(idData);
+
+                var idLink = $(this).parents('.trickparent').data('link');
+
+                $('.link-delete').attr('href', idLink);
+
+                $('.modal').fadeIn(500, function () {
+
+                    $('.modal-dialog').slideDown(300);
+
+                });
+                // Fermeture
+                $('.close-spe').click(function () {
+
+                    $('.modal').fadeOut(500);
+                    $('.modal-dialog').hide();
+
+                });
+            })
+        });
     </script>
 {% endblock %}

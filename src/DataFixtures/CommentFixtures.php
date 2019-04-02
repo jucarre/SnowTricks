@@ -17,7 +17,7 @@ class CommentFixtures extends Fixture implements DependentFixtureInterface
         $faker = new Factory;
         $faker = $faker->create('fr_FR');
 
-        for ($c = 1; $c < mt_rand(100, 150); $c++) {
+        for ($c = 1; $c < mt_rand(400, 550); $c++) {
 
             $trick = $this->getReference('trick-'. mt_rand(1, 45));
 

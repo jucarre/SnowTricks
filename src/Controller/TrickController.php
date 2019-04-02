@@ -101,7 +101,7 @@ class TrickController extends AbstractController
             'Votre Trick a bien été supprimer !'
         );
 
-        return $this->redirectToRoute('home');
+        return $this->redirectToRoute('account');
     }
 
     /**
