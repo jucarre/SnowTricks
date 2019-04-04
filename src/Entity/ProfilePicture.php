@@ -8,7 +8,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ProfilePictureRepository")
- * @ORM\HasLifecycleCallbacks()
  */
 class ProfilePicture
 {
@@ -39,18 +38,6 @@ class ProfilePicture
      */
     private $PathPicture;
 
-    private $targetDirectory;
-
-
-    public function getTargetDirectory()
-    {
-        return $this->targetDirectory;
-    }
-
-    public function setTargetDirectory($targetDirectory): void
-    {
-        $this->targetDirectory = $targetDirectory;
-    }
 
     public function getId(): ?int
     {
@@ -79,30 +66,6 @@ class ProfilePicture
         $this->PathPicture = $PathPicture;
 
         return $this;
-    }
-
-    /**
-     * @ORM\PreFlush()
-     */
-    public function upload()
-    {
-        if ($this->file === null){
-            return;
-        }
-        if($this->id){
-            unlink($this->getTargetDirectory().'/'.$this->getPathPicture());
-        }
-        $fileName = $this->createName();
-
-        $this->setPathPicture($fileName);
-
-        $this->file->move($this->getTargetDirectory(), $fileName);
-
-    }
-
-    public function createName()
-    {
-        return md5(uniqid()) . '.' . $this->file->guessExtension();
     }
 
 }

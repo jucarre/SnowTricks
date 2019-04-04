@@ -33,12 +33,3 @@ services:
   App\Service\FileUploader:
     arguments:
       $targetDirectory: '%pictures_directory%'
-
-  App\DataFixtures\ProfilePictureFixtures:
-    arguments:
-      $directoryProfilePictures: '%profile_pictures_directory%'
-      $targetDirectory: '%pictures_directory%'
-
-  App\Controller\AccountController:
-    arguments:
-      $targetDirectory: '%pictures_directory%'

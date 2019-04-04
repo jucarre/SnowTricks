@@ -15,11 +15,11 @@ class PictureFixtures extends Fixture
         $faker = new Factory;
         $faker = $faker->create('fr_FR');
 
-        for ($a = 1; $a <= 40; $a++) {
+        for ($a = 1; $a <= 5; $a++) {
 
             $picture = new Picture();
 
-            $picture->setName('snow-'. mt_rand(1, 4) .'.jpg')
+            $picture->setName('snow-'.$a.'.jpg')
                 ->setAlt($faker->name());
 
             $this->addReference('picture-' . $a, $picture);

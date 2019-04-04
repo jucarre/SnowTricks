@@ -16,7 +16,7 @@ class VideoFixtures extends Fixture
         $faker = new Factory;
         $faker = $faker->create('fr_FR');
 
-        for ($b = 1; $b <=40; $b++) {
+        for ($b = 1; $b <=10; $b++) {
             $video = new Video();
 
             $video->setName('UGdif-dwu-8')

@@ -9,11 +9,13 @@ use App\Form\RestPasswordType;
 use App\Form\UpdatePasswordType;
 use App\Form\UserProfilePictureType;
 use App\Repository\UserRepository;
+use App\Service\FileUploader;
 use App\Service\TargetDirectory;
 use App\Service\TokenSendler;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormError;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -21,13 +23,6 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class AccountController extends AbstractController
 {
-    private $targetDirectory;
-
-    public function __construct($targetDirectory)
-    {
-        $this->targetDirectory = $targetDirectory;
-    }
-
     /**
      * @Route("user/account/dashboard", name="account")
      * @IsGranted("ROLE_USER")
@@ -80,7 +75,7 @@ class AccountController extends AbstractController
      * @Route("user/account/picture/add", name="add_picture_user")
      * @IsGranted("ROLE_USER")
      */
-    public function addPictureUser(EntityManagerInterface $manager, Request $request)
+    public function addPictureUser(EntityManagerInterface $manager, Request $request, FileUploader $fileUploader)
     {
         $user = $this->getUser();
         $profilePicture = new ProfilePicture;
@@ -90,9 +85,13 @@ class AccountController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $path = $this->targetDirectory;
+            $profilePicture = $form->getData();
 
-            $profilePicture->setTargetDirectory($path);
+            $file = $profilePicture->getFile();
+
+            $fileName = $fileUploader->upload($file);
+
+            $profilePicture->setPathPicture($fileName);
 
             $user->setProfilePicture($profilePicture);
 
@@ -117,7 +116,7 @@ class AccountController extends AbstractController
      * @Route("user/account/picture/edit", name="edit_picture_user")
      * @IsGranted("ROLE_USER")
      */
-    public function editPictureUser(EntityManagerInterface $manager, Request $request)
+    public function editPictureUser(EntityManagerInterface $manager, Request $request,FileUploader $fileUploader)
     {
         $profilePicture = $this->getUser()->getProfilePicture();
 
@@ -127,8 +126,16 @@ class AccountController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $path = $this->targetDirectory;
-            $profilePicture->setTargetDirectory($path);
+            $oldFileName = $profilePicture->getPathPicture();
+            $fileUploader->removeFile($oldFileName);
+
+            $profilePicture = $form->getData();
+
+            $file = $profilePicture->getFile();
+
+            $fileName = $fileUploader->upload($file);
+
+            $profilePicture->setPathPicture($fileName);
 
             $manager->flush();
 
