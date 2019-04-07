@@ -219,7 +219,6 @@
                     $("#btn-up").show();
                 }
             }).catch(function (error) {
-                console.log(error);
                 if (error.response.status === 404) {
                     window.alert("Erreur ! la page demander n'existe pas.");
                 } else {
