@@ -1,4 +1,4 @@
-{% for comment in comments %}
+{% for comment in comments | slice(comment, comment + 5)%}
     <li class="media mb-3">
         {% if comment.user.profilePicture.pathPicture %}
             <img src="{{ asset('uploads/pictures/'~comment.user.profilePicture.pathPicture) }}"

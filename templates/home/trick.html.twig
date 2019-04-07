@@ -225,16 +225,18 @@
         function loadMore(event) {
             event.preventDefault();
             click++;
-            let comment = 15 * click;
+            let comment = 5 * click;
             const url = "{{ path('load_more_comment', {'id':trick.id}) }}/" + comment;
             axios.get(url).then(function (response) {
                 $("#block-comment").append(response.data);
-                if (comment === 15) {
+                if (comment === 5) {
                     $("#btn-up").show();
                 }
             }).catch(function (error) {
                 if (error.response.status === 404) {
                     window.alert("Erreur ! la page demander n'existe pas.");
+                } else if (response.status === 404) {
+                    window.alert("La page appelé n'existe pas");
                 } else {
                     window.alert("Alert une erreure c'est produite veuillez contacter le support !");
                 }

@@ -1,6 +1,6 @@
 {% for trick in tricks %}
     <div class="col-md-3 col-sm-6 portfolio-item">
-        <a class="portfolio-link" data-toggle="modal" href="{{ path('show', {'id': trick.id}) }}">
+        <a class="portfolio-link" href="{{ path('show', {'id': trick.id}) }}">
             <div class="portfolio-hover">
                 <div class="portfolio-hover-content">
                     <i class="fas fa-plus fa-3x"></i>

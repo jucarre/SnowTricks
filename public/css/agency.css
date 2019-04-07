@@ -148,6 +148,7 @@ img::-moz-selection {
 
 #mainNav .navbar-brand {
   color: #5BC0BE;
+  text-shadow: 1px 2px 3px rgba(151, 216, 230, 0.2);
   font-family: 'Kaushan Script', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 }
 

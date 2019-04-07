@@ -76,12 +76,13 @@ class HomeController extends AbstractController
     }
 
     /**
-     * @Route("/trick/{id}/{comment<\d+>?15}", name="load_more_comment")
+     * @Route("/trick/{id}/{comment}", name="load_more_comment",requirements={"comment": "\d+"})
      */
-    public function loadMoreComment(Trick $trick, CommentRepository $commentRepo, $comment = 15)
+    public function loadMoreComment(Trick $trick, CommentRepository $commentRepo, $comment = 5)
     {
         return $this->render('home/load_Comment.html.twig', [
-                'comments' => $commentRepo->findBy(['trick' => $trick->getId()], ['dateCreation' => 'DESC'], 15, $comment)
+                'comments' => $commentRepo->findBy(['trick' => $trick->getId()], ['dateCreation' => 'DESC'], 5, $comment),
+                'comment' => $comment
             ]
         );
     }
