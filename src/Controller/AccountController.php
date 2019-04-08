@@ -28,7 +28,6 @@ class AccountController extends AbstractController
      */
     public function index(CommentRepository $commentRepo, Request $request)
     {
-        $url = 'account';
         $nbCommentOnPage = 10;
         if (!$page = $request->query->get('page')) {
             $page = 1;
@@ -46,7 +45,6 @@ class AccountController extends AbstractController
             'comments' => $commentRepo->findBy(['user' => $this->getUser()->getId()], ['dateCreation' => 'DESC'], $nbCommentOnPage, $page - 1),
             'nbPages' => $nbPages,
             'currentPage' => $currentPage,
-            'url' => $url,
         ]);
 
     }

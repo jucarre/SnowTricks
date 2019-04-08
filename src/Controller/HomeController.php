@@ -42,7 +42,6 @@ class HomeController extends AbstractController
     public function show(Trick $trick, Request $request, EntityManagerInterface $manager, CommentRepository $commentRepo)
     {
         // pagination de commentaire
-        $url = 'show';
         $nbCommentOnPage = 5;
         if (!$page = $request->query->get('page')) {
             $page = 1;
@@ -87,7 +86,6 @@ class HomeController extends AbstractController
                 'comments' => $commentRepo->findBy(['trick' => $trick->getId()], ['dateCreation' => 'DESC'], $nbCommentOnPage, $page-1),
                 'nbPages' => $nbPages,
                 'currentPage' => $page,
-                'url' => $url,
             ]
         );
     }

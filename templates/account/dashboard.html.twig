@@ -160,7 +160,7 @@
                                                         <ul class="pagination justify-content-center">
                                                             {% if currentPage != 0 %}
                                                                 <li class="page-item">
-                                                                    <a class="page-link" href="{{ path(url, { 'page': 0 }) }}">début</a>
+                                                                    <a class="page-link" href="{{ path('account', { 'page': 0 }) }}">début</a>
                                                                 </li>
                                                             {% endif %}
                                                             {% for i in 1..nbPages %}
@@ -172,13 +172,13 @@
                                                                 {% elseif 0 > (currentPage + nearbyPagesLimit) - loop.index %} {# hide all after #}
                                                                 {% else %}
                                                                     <li class="page-item {% if currentPage == loop.index %}active {% endif %}">
-                                                                        <a class="page-link" href="{{ path(url, { 'page': loop.index }) }}">{{ loop.index }}</a>
+                                                                        <a class="page-link" href="{{ path('account', { 'page': loop.index }) }}">{{ loop.index }}</a>
                                                                     </li>
                                                                 {% endif %}
                                                             {% endfor %}
                                                             {% if currentPage != nbPages %}
                                                                 <li class="page-item">
-                                                                    <a class="page-link" href="{{ path(url, { 'page': nbPages }) }}">Fin</a>
+                                                                    <a class="page-link" href="{{ path('account', { 'page': nbPages }) }}">Fin</a>
                                                                 </li>
                                                             {% endif %}
                                                         </ul>
