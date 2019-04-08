@@ -49,7 +49,8 @@ class HomeController extends AbstractController
         $offset = $page * $nbCommentOnPage;
 
         $allComment = $commentRepo->findBy(['trick' => $trick->getId()], ['dateCreation' => 'DESC']);
-        $nbPages = ceil(count($allComment) / $nbCommentOnPage)-1;
+        $nbComment = count($allComment);
+        $nbPages = ceil($nbComment / $nbCommentOnPage)-1;
 
         if ($page > $nbPages) {
             throw $this->createNotFoundException("cette page n'existe pas");

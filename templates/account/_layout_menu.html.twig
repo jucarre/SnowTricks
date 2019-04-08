@@ -5,7 +5,7 @@
                class="list-group-item list-group-item-action {{ app.request.get('_route') == 'account' ? 'active' }}">
                 Dashboard</a>
             <a href="{{ path('update_password') }}"
-               class="list-group-item list-group-item-action {{ app.request.get('_route') == 'rest_password' ? 'active' }}">
+               class="list-group-item list-group-item-action {{ app.request.get('_route') == 'update_password' ? 'active' }}">
                 Mot de passe</a>
             {% if app.user.profilePicture.id %}
                 <a href="{{ path('edit_picture_user' )}}"

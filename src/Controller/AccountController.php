@@ -35,10 +35,10 @@ class AccountController extends AbstractController
         }
         $offset = $page * $nbCommentOnPage;
 
-
         $allComment = $commentRepo->findBy(['user' => $this->getUser()->getId()], ['dateCreation' => 'DESC']);
-        $nbPages = ceil(count($allComment) / $nbCommentOnPage) - 1;
-        $currentPage = $page;
+
+        $nbComment = count($allComment);
+        $nbPages = ceil($nbComment / $nbCommentOnPage)-1;
 
         if ($page > $nbPages) {
             throw $this->createNotFoundException("cette page n'existe pas");
@@ -46,9 +46,9 @@ class AccountController extends AbstractController
 
         return $this->render('account/dashboard.html.twig', [
             'tricks' => $this->getUser()->getTricks(),
-            'comments' => $commentRepo->findBy(['user' => $this->getUser()->getId()], ['id' => 'DESC'], $nbCommentOnPage, $offset),
+            'comments' => $commentRepo->findBy(['user' => $this->getUser()->getId()], ['dateCreation' => 'DESC'], $nbCommentOnPage, $offset),
             'nbPages' => $nbPages,
-            'currentPage' => $currentPage,
+            'currentPage' => $page,
         ]);
 
     }
