@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="70c3b5e8-8028-410d-8ae7-2be26e53295c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/Controller/AccountController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/AccountController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/home/trick.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/home/trick.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/home/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/home/index.html.twig" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -21,8 +20,8 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/Controller/HomeController.php">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="1201">
-                  <caret line="67" selection-start-line="67" selection-end-line="67" />
+                <state relative-caret-position="1507">
+                  <caret line="87" column="39" selection-start-line="87" selection-start-column="39" selection-end-line="87" selection-end-column="39" />
                   <folding>
                     <element signature="e#34#57#0#PHP" expanded="true" />
                   </folding>
@@ -53,24 +52,28 @@
               </provider>
             </entry>
           </file>
-          <file pinned="false" current-in-tab="true">
+          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/templates/home/trick.html.twig">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="127">
-                  <caret line="220" column="99" selection-start-line="220" selection-start-column="99" selection-end-line="220" selection-end-column="99" />
+                <state relative-caret-position="418">
+                  <caret line="236" column="79" lean-forward="true" selection-start-line="236" selection-start-column="79" selection-end-line="236" selection-end-column="79" />
                   <folding>
-                    <element signature="e#13245#13252#0#Twig" expanded="true" />
+                    <element signature="e#13245#13249#0#Twig" expanded="true" />
+                    <element signature="e#14572#14576#0#Twig" expanded="true" />
+                    <element signature="e#15077#15081#0#Twig" expanded="true" />
                   </folding>
                 </state>
               </provider>
             </entry>
           </file>
-          <file pinned="false" current-in-tab="false">
+          <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/templates/home/index.html.twig">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="280">
-                  <caret line="114" column="49" selection-start-line="114" selection-start-column="34" selection-end-line="114" selection-end-column="49" />
+                <state relative-caret-position="286">
+                  <caret line="37" column="40" lean-forward="true" selection-start-line="37" selection-start-column="40" selection-end-line="37" selection-end-column="40" />
                   <folding>
+                    <element signature="e#1566#1578#0#Twig" expanded="true" />
+                    <element signature="e#1669#1673#0#Twig" expanded="true" />
                     <element signature="e#5434#5449#0#Twig" expanded="true" />
                   </folding>
                 </state>
@@ -81,11 +84,11 @@
       </split-first>
       <split-second>
         <leaf>
-          <file pinned="false" current-in-tab="false">
+          <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/Controller/AccountController.php">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-233">
-                  <caret line="46" column="42" selection-start-line="45" selection-start-column="12" selection-end-line="46" selection-end-column="42" />
+                <state relative-caret-position="504">
+                  <caret line="44" column="53" selection-start-line="44" selection-start-column="53" selection-end-line="44" selection-end-column="53" />
                   <folding>
                     <element signature="e#34#64#0#PHP" expanded="true" />
                   </folding>
@@ -93,14 +96,17 @@
               </provider>
             </entry>
           </file>
-          <file pinned="false" current-in-tab="true">
+          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/templates/account/dashboard.html.twig">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="390">
-                  <caret line="22" column="108" selection-start-line="22" selection-start-column="108" selection-end-line="22" selection-end-column="108" />
+                <state relative-caret-position="507">
+                  <caret line="180" column="111" selection-start-line="180" selection-start-column="111" selection-end-line="180" selection-end-column="111" />
                   <folding>
                     <element signature="e#228#725#0#HTML" expanded="true" />
                     <element signature="e#789#854#0#HTML" expanded="true" />
+                    <element signature="e#9844#9851#0#Twig" expanded="true" />
+                    <element signature="e#11304#11311#0#Twig" expanded="true" />
+                    <element signature="e#11869#11876#0#Twig" expanded="true" />
                   </folding>
                 </state>
               </provider>
@@ -138,7 +144,6 @@
         <option value="$PROJECT_DIR$/src/DataFixtures/VideoFixtures.php" />
         <option value="$PROJECT_DIR$/src/DataFixtures/TrickFixtures.php" />
         <option value="$PROJECT_DIR$/templates/base.html.twig" />
-        <option value="$PROJECT_DIR$/templates/home/index.html.twig" />
         <option value="$PROJECT_DIR$/templates/home/load_comment.html.twig" />
         <option value="$PROJECT_DIR$/templates/home/load_more.html.twig" />
         <option value="$PROJECT_DIR$/templates/home/edit_trick.html.twig" />
@@ -149,11 +154,12 @@
         <option value="$PROJECT_DIR$/templates/account/load_more_comment.html.twig" />
         <option value="$PROJECT_DIR$/templates/account/edit_picture_user.html.twig" />
         <option value="$PROJECT_DIR$/templates/account/update_password.html.twig" />
-        <option value="$PROJECT_DIR$/src/Controller/HomeController.php" />
-        <option value="$PROJECT_DIR$/templates/account/dashboard.html.twig" />
         <option value="$PROJECT_DIR$/public/css/agency.css" />
         <option value="$PROJECT_DIR$/src/Controller/AccountController.php" />
+        <option value="$PROJECT_DIR$/templates/account/dashboard.html.twig" />
         <option value="$PROJECT_DIR$/templates/home/trick.html.twig" />
+        <option value="$PROJECT_DIR$/src/Controller/HomeController.php" />
+        <option value="$PROJECT_DIR$/templates/home/index.html.twig" />
       </list>
     </option>
   </component>
@@ -386,12 +392,12 @@
       <workItem from="1554415096046" duration="255000" />
       <workItem from="1554631486042" duration="7140000" />
       <workItem from="1554661167749" duration="2238000" />
-      <workItem from="1554665561690" duration="9056000" />
+      <workItem from="1554665561690" duration="9511000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="34136000" />
+    <option name="totallyTimeSpent" value="34591000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="832" extended-state="6" />
@@ -775,17 +781,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/account/dashboard.html.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="22" column="108" selection-start-line="22" selection-start-column="108" selection-end-line="22" selection-end-column="108" />
-          <folding>
-            <element signature="e#228#725#0#HTML" expanded="true" />
-            <element signature="e#789#854#0#HTML" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/css/agency.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="183">
@@ -793,12 +788,28 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Controller/HomeController.php">
+    <entry file="file://$PROJECT_DIR$/templates/account/dashboard.html.twig">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1201">
-          <caret line="67" selection-start-line="67" selection-end-line="67" />
+        <state relative-caret-position="507">
+          <caret line="180" column="111" selection-start-line="180" selection-start-column="111" selection-end-line="180" selection-end-column="111" />
           <folding>
-            <element signature="e#34#57#0#PHP" expanded="true" />
+            <element signature="e#228#725#0#HTML" expanded="true" />
+            <element signature="e#789#854#0#HTML" expanded="true" />
+            <element signature="e#9844#9851#0#Twig" expanded="true" />
+            <element signature="e#11304#11311#0#Twig" expanded="true" />
+            <element signature="e#11869#11876#0#Twig" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/home/trick.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="418">
+          <caret line="236" column="79" lean-forward="true" selection-start-line="236" selection-start-column="79" selection-end-line="236" selection-end-column="79" />
+          <folding>
+            <element signature="e#13245#13249#0#Twig" expanded="true" />
+            <element signature="e#14572#14576#0#Twig" expanded="true" />
+            <element signature="e#15077#15081#0#Twig" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -815,22 +826,24 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/home/index.html.twig">
+    <entry file="file://$PROJECT_DIR$/src/Controller/HomeController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="280">
-          <caret line="114" column="49" selection-start-line="114" selection-start-column="34" selection-end-line="114" selection-end-column="49" />
+        <state relative-caret-position="1507">
+          <caret line="87" column="39" selection-start-line="87" selection-start-column="39" selection-end-line="87" selection-end-column="39" />
           <folding>
-            <element signature="e#5434#5449#0#Twig" expanded="true" />
+            <element signature="e#34#57#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/home/trick.html.twig">
+    <entry file="file://$PROJECT_DIR$/templates/home/index.html.twig">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="127">
-          <caret line="220" column="99" selection-start-line="220" selection-start-column="99" selection-end-line="220" selection-end-column="99" />
+        <state relative-caret-position="286">
+          <caret line="37" column="40" lean-forward="true" selection-start-line="37" selection-start-column="40" selection-end-line="37" selection-end-column="40" />
           <folding>
-            <element signature="e#13245#13252#0#Twig" expanded="true" />
+            <element signature="e#1566#1578#0#Twig" expanded="true" />
+            <element signature="e#1669#1673#0#Twig" expanded="true" />
+            <element signature="e#5434#5449#0#Twig" expanded="true" />
           </folding>
         </state>
       </provider>

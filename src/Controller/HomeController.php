@@ -37,7 +37,7 @@ class HomeController extends AbstractController
     }
 
     /**
-     * @Route("/trick/{id}/{page}", name="show", requirements={"page"="\d+"})
+     * @Route("/trick/{id}", name="show")
      */
     public function show(Trick $trick, Request $request, EntityManagerInterface $manager, CommentRepository $commentRepo)
     {

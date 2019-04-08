@@ -23,7 +23,7 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class AccountController extends AbstractController
 {
     /**
-     * @Route("user/account/dashboard{page}", name="account", requirements={"page"="\d+"})
+     * @Route("user/account/dashboard", name="account")
      * @IsGranted("ROLE_USER")
      */
     public function index(CommentRepository $commentRepo, Request $request)

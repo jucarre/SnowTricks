@@ -3,7 +3,7 @@
 {% block title %}Snow Tricks {% endblock %}
 {% block header %}
     <!-- Header -->
-    <header class="masthead " id="up-top" style=" background-image: url({{ asset('/uploads/pictures/snow-3.jpg')}});">
+    <header class="masthead " id="up-top" style=" background-image: url({{ asset('/uploads/pictures/snow-3.jpg') }});">
         <div class="container">
             <div class="intro-text">
                 <div class="intro-lead-in">Bienvenue sur le plus gros site communautaire de tricks pour Snowboarder!
@@ -33,7 +33,9 @@
                 {% for trick in tricks %}
                     <div class="col-md-3 col-sm-6 portfolio-item trickparent"
                          data-idtrick="{{ trick.id }}"
-                         data-link="{{ path('delete_trick', {'id': trick.id}) }}">
+                            {% if is_granted('DELETE', trick) %}
+                                data-link="{{ path('delete_trick', {'id': trick.id}) }}"
+                            {% endif %}>
                         <a class="portfolio-link" href="{{ path('show', {'id': trick.id}) }}">
                             <div class="portfolio-hover">
                                 <div class="portfolio-hover-content">
