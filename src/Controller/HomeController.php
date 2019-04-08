@@ -37,10 +37,23 @@ class HomeController extends AbstractController
     }
 
     /**
-     * @Route("/trick/{id}", name="show")
+     * @Route("/trick/{id}/{page}", name="show", requirements={"page"="\d+"})
      */
     public function show(Trick $trick, Request $request, EntityManagerInterface $manager, CommentRepository $commentRepo)
     {
+        // pagination de commentaire
+        $url = 'show';
+        $nbCommentOnPage = 5;
+        if (!$page = $request->query->get('page')) {
+            $page = 1;
+        }
+        $allComment = $commentRepo->findBy(['trick' => $trick->getId()], ['dateCreation' => 'DESC']);
+        $nbPages = ceil(count($allComment) / $nbCommentOnPage)+1;
+
+        if ($page > $nbPages) {
+            throw $this->createNotFoundException("cette page n'existe pas");
+        }
+        // Traiment de formulaire pour les commentaire
         $comment = new Comment();
 
         $form = $this->createForm(CommentType::class, $comment);
@@ -67,25 +80,15 @@ class HomeController extends AbstractController
             );
         }
 
+
         return $this->render('home/trick.html.twig', [
                 'form' => $form->createView(),
                 'trick' => $trick,
-                'comments' => $commentRepo->findBy(['trick' => $trick->getId()], ['dateCreation' => 'DESC'], 5, 0)
+                'comments' => $commentRepo->findBy(['trick' => $trick->getId()], ['dateCreation' => 'DESC'], $nbCommentOnPage, $page-1),
+                'nbPages' => $nbPages,
+                'currentPage' => $page,
+                'url' => $url,
             ]
         );
     }
-
-    /**
-     * @Route("/trick/{id}/{comment}", name="load_more_comment",requirements={"comment": "\d+"})
-     */
-    public function loadMoreComment(Trick $trick, CommentRepository $commentRepo, $comment = 5)
-    {
-        return $this->render('home/load_Comment.html.twig', [
-                'comments' => $commentRepo->findBy(['trick' => $trick->getId()], ['dateCreation' => 'DESC'], 5, $comment),
-                'comment' => $comment
-            ]
-        );
-    }
-
-
 }

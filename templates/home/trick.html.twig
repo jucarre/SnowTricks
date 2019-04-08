@@ -165,7 +165,7 @@
                     <div class="row mb-2">
                         <div class="col-md-8 ml-auto mr-auto mb-2">
                             <h4 class="text-center mb-4">Commentaires</h4>
-                            <ul class="list-unstyled" id="block-comment">
+                            <ul class="list-unstyled">
                                 {% for comment in comments %}
                                     <li class="media mb-3">
                                         {% if comment.user.profilePicture.pathPicture %}
@@ -199,13 +199,51 @@
                                 {% endfor %}
 
                             </ul>
-                            <div class="row">
-                                <a class="m-auto" id="loadMoreBTN">
-                                    <button class="btn btn-primary ">Voir plus</button>
-                                </a>
-                            </div>
-                            <a id="btn-up" href="#portfolio" class="btn btn-primary float-right js-scroll-trigger mr-4"><i
-                                        class="fas fa-angle-double-up fa-2x"></i></a>
+                            {#
+                                               Parameters:
+                                                 * nbPages (int): number of pages
+                                                 * currentPage (int): current pages
+                                                 * url (string): route name & query (string): route parameter
+                                                   ex: list/page-5 (5 = page )
+                                        #}
+
+                            {% spaceless %}
+                                {% if nbPages > 1 %}
+
+                                    {# Number of page around current page+1 #}
+                                    {% set nearbyPagesLimit = 3 %}
+
+                                    <div class="container">
+                                        <nav aria-label="">
+                                            <ul class="pagination justify-content-center">
+                                                {% if currentPage != 1 %}
+                                                    <li class="page-item">
+                                                        <a class="page-link" href="{{ path(url, {'id': trick.id,'page': 1 }) }}">début</a>
+                                                    </li>
+                                                {% endif %}
+                                                {% for i in 1..nbPages %}
+                                                    {% if 0 == (currentPage - nearbyPagesLimit) - loop.index %} {# dot before #}
+                                                        <li class="page-item disabled"><a class="page-link" href="#">...</a></li>
+                                                    {% elseif 0 == (currentPage + nearbyPagesLimit) - loop.index %} {# dot after #}
+                                                        <li class="page-item disabled"><a class="page-link" href="#">...</a></li>
+                                                    {% elseif 0 < (currentPage - nearbyPagesLimit) - loop.index %} {# hide all before #}
+                                                    {% elseif 0 > (currentPage + nearbyPagesLimit) - loop.index %} {# hide all after #}
+                                                    {% else %}
+                                                        <li class="page-item {% if currentPage == loop.index %}active {% endif %}">
+                                                            <a class="page-link" href="{{ path(url, {'id': trick.id, 'page': loop.index }) }}">{{ loop.index }}</a>
+                                                        </li>
+                                                    {% endif %}
+                                                {% endfor %}
+                                                {% if currentPage != nbPages %}
+                                                    <li class="page-item">
+                                                        <a class="page-link" href="{{ path(url, {'id': trick.id, 'page': nbPages }) }}">Fin</a>
+                                                    </li>
+                                                {% endif %}
+                                            </ul>
+                                        </nav>
+                                    </div>
+                                {% endif %}
+                            {% endspaceless %}
                         </div>
 
                     </div>
@@ -214,41 +252,4 @@
         </div>
     </section>
 
-{% endblock %}
-{% block javascripts %}
-    {{ parent() }}
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script>
-        click = 0;
-        $("#btn-up").hide();
-
-        function loadMore(event) {
-            event.preventDefault();
-            click++;
-            let comment = 5 * click;
-            const url = "{{ path('load_more_comment', {'id':trick.id}) }}/" + comment;
-            axios.get(url).then(function (response) {
-                $("#block-comment").append(response.data);
-                if (comment === 5) {
-                    $("#btn-up").show();
-                }
-            }).catch(function (error) {
-                if (error.response.status === 404) {
-                    window.alert("Erreur ! la page demander n'existe pas.");
-                } else if (response.status === 404) {
-                    window.alert("La page appelé n'existe pas");
-                } else {
-                    window.alert("Alert une erreure c'est produite veuillez contacter le support !");
-                }
-            });
-        }
-
-        document.getElementById('loadMoreBTN').addEventListener('click', loadMore);
-
-
-        $("#showPictureAndVideo").click(function() {
-            $("#rowPictureAndVideo").show();
-            $("#showPictureAndVideo").hide();
-        });
-    </script>
 {% endblock %}

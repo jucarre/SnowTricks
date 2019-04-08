@@ -8,9 +8,9 @@ use App\Form\ForGotPasswordType;
 use App\Form\RestPasswordType;
 use App\Form\UpdatePasswordType;
 use App\Form\UserProfilePictureType;
+use App\Repository\CommentRepository;
 use App\Repository\UserRepository;
 use App\Service\FileUploader;
-use App\Service\TargetDirectory;
 use App\Service\TokenSendler;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -23,15 +23,44 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class AccountController extends AbstractController
 {
     /**
-     * @Route("user/account/dashboard", name="account")
+     * @Route("user/account/dashboard{page}", name="account", requirements={"page"="\d+"})
      * @IsGranted("ROLE_USER")
      */
-    public function index()
+    public function index(CommentRepository $commentRepo, Request $request)
     {
+        $url = 'account';
+        $nbCommentOnPage = 10;
+        if (!$page = $request->query->get('page')) {
+            $page = 1;
+        }
+        $allComment = $commentRepo->findBy(['user' => $this->getUser()->getId()], ['dateCreation' => 'DESC']);
+        $nbPages = ceil(count($allComment) / $nbCommentOnPage) + 1;
+        $currentPage = $page;
+
+        if ($page > $nbPages) {
+            throw $this->createNotFoundException("cette page n'existe pas");
+        }
+
         return $this->render('account/dashboard.html.twig', [
             'tricks' => $this->getUser()->getTricks(),
-            'comments' => $this->getUser()->getComments(),
+            'comments' => $commentRepo->findBy(['user' => $this->getUser()->getId()], ['dateCreation' => 'DESC'], $nbCommentOnPage, $page - 1),
+            'nbPages' => $nbPages,
+            'currentPage' => $currentPage,
+            'url' => $url,
         ]);
+
+    }
+
+    /**
+     * @Route("user/account/dashboard/{comment}", name="user_comment" , requirements={"comment": "\d+"} )
+     */
+    public function loadMoreUserComment(CommentRepository $commentRepo, $comment = 10)
+    {
+        return $this->render('account/load_more_user_comment.html.twig', [
+                'comments' => $commentRepo->findBy(['user' => $this->getUser()->getId()], ['dateCreation' => 'DESC'], 10, $comment),
+                'comment' => $comment
+            ]
+        );
     }
 
     /**
@@ -115,7 +144,7 @@ class AccountController extends AbstractController
      * @Route("user/account/picture/edit", name="edit_picture_user")
      * @IsGranted("ROLE_USER")
      */
-    public function editPictureUser(EntityManagerInterface $manager, Request $request,FileUploader $fileUploader)
+    public function editPictureUser(EntityManagerInterface $manager, Request $request, FileUploader $fileUploader)
     {
         $profilePicture = $this->getUser()->getProfilePicture();
 

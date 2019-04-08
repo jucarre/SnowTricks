@@ -6,7 +6,21 @@
 
 {% endblock %}
 {% block content %}
-    <section class="bg-light " id="portfolio">
+    <div class="background-image"
+         style="background-image: url({{ asset('/uploads/pictures/snow-3.jpg') }});
+                 -webkit-filter: blur(5px);
+                 -moz-filter: blur(5px);
+                 -o-filter: blur(5px);
+                 -ms-filter: blur(5px);
+                 filter: blur(5px);
+                 position: fixed;
+                 width: 100%;
+                 height: 100%;
+                 top: 0;
+                 left: 0;
+                 z-index: -1;
+                 background-position: center;"></div>
+    <section class="bg-light shadow-lg " id="portfolio" style="background-color: rgba(0, 0, 0, 0)!important;">
 
         <div class="container">
             <h2 class="text-center mb-5">Bonjour {{ app.user.pseudo }}</h2>
@@ -110,7 +124,6 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-
                                         {% for comment in comments %}
                                             <tr>
                                                 <th scope="row">
@@ -127,6 +140,53 @@
                                         {% endfor %}
                                         </tbody>
                                     </table>
+
+                                        {#
+                                                Parameters:
+                                                  * nbPages (int): number of pages
+                                                  * currentPage (int): current pages
+                                                  * url (string): route name & query (string): route parameter
+                                                    ex: list/page-5 (5 = page )
+                                         #}
+
+                                        {% spaceless %}
+                                            {% if nbPages > 1 %}
+
+                                                {# Number of page around current page+1 #}
+                                                {% set nearbyPagesLimit = 3 %}
+
+                                                <div class="container">
+                                                    <nav aria-label="">
+                                                        <ul class="pagination justify-content-center">
+                                                            {% if currentPage != 0 %}
+                                                                <li class="page-item">
+                                                                    <a class="page-link" href="{{ path(url, { 'page': 0 }) }}">début</a>
+                                                                </li>
+                                                            {% endif %}
+                                                            {% for i in 1..nbPages %}
+                                                                {% if 0 == (currentPage - nearbyPagesLimit) - loop.index %} {# dot before #}
+                                                                    <li class="page-item disabled"><a class="page-link" href="#">...</a></li>
+                                                                {% elseif 0 == (currentPage + nearbyPagesLimit) - loop.index %} {# dot after #}
+                                                                    <li class="page-item disabled"><a class="page-link" href="#">...</a></li>
+                                                                {% elseif 0 < (currentPage - nearbyPagesLimit) - loop.index %} {# hide all before #}
+                                                                {% elseif 0 > (currentPage + nearbyPagesLimit) - loop.index %} {# hide all after #}
+                                                                {% else %}
+                                                                    <li class="page-item {% if currentPage == loop.index %}active {% endif %}">
+                                                                        <a class="page-link" href="{{ path(url, { 'page': loop.index }) }}">{{ loop.index }}</a>
+                                                                    </li>
+                                                                {% endif %}
+                                                            {% endfor %}
+                                                            {% if currentPage != nbPages %}
+                                                                <li class="page-item">
+                                                                    <a class="page-link" href="{{ path(url, { 'page': nbPages }) }}">Fin</a>
+                                                                </li>
+                                                            {% endif %}
+                                                        </ul>
+                                                    </nav>
+                                                </div>
+                                            {% endif %}
+                                        {% endspaceless %}
+
                                 </div>
                             </div>
                         </div>
@@ -138,6 +198,7 @@
 {% endblock %}
 {% block javascripts %}
     {{ parent() }}
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script>
 
         $(function () {
