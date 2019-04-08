@@ -116,6 +116,7 @@
                                     <table class="table table-striped">
                                         <thead>
                                         <tr>
+                                            <th scope="col">id</th>
                                             <th scope="col">lien vers le trick</th>
                                             <th scope="col">date de création</th>
                                             <th scope="col">contenu</th>
@@ -126,7 +127,8 @@
                                         <tbody>
                                         {% for comment in comments %}
                                             <tr>
-                                                <th scope="row">
+                                                <th scope="row">{{ comment.id }}</th>
+                                                <th >
                                                     <a href="{{ path('show', {'id': comment.trick.id}) }}">{{ comment.trick.id }}</a>
                                                 </th>
                                                 <th>{{ comment.dateCreation | date('d-m-Y') }}</th>

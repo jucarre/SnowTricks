@@ -44,10 +44,12 @@ class HomeController extends AbstractController
         // pagination de commentaire
         $nbCommentOnPage = 5;
         if (!$page = $request->query->get('page')) {
-            $page = 1;
+            $page = 0;
         }
+        $offset = $page * $nbCommentOnPage;
+
         $allComment = $commentRepo->findBy(['trick' => $trick->getId()], ['dateCreation' => 'DESC']);
-        $nbPages = ceil(count($allComment) / $nbCommentOnPage)+1;
+        $nbPages = ceil(count($allComment) / $nbCommentOnPage)-1;
 
         if ($page > $nbPages) {
             throw $this->createNotFoundException("cette page n'existe pas");
@@ -83,7 +85,7 @@ class HomeController extends AbstractController
         return $this->render('home/trick.html.twig', [
                 'form' => $form->createView(),
                 'trick' => $trick,
-                'comments' => $commentRepo->findBy(['trick' => $trick->getId()], ['dateCreation' => 'DESC'], $nbCommentOnPage, $page-1),
+                'comments' => $commentRepo->findBy(['trick' => $trick->getId()], ['dateCreation' => 'DESC'], $nbCommentOnPage, $offset),
                 'nbPages' => $nbPages,
                 'currentPage' => $page,
             ]

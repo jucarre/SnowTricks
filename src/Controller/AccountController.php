@@ -29,11 +29,15 @@ class AccountController extends AbstractController
     public function index(CommentRepository $commentRepo, Request $request)
     {
         $nbCommentOnPage = 10;
+
         if (!$page = $request->query->get('page')) {
-            $page = 1;
+            $page = 0;
         }
+        $offset = $page * $nbCommentOnPage;
+
+
         $allComment = $commentRepo->findBy(['user' => $this->getUser()->getId()], ['dateCreation' => 'DESC']);
-        $nbPages = ceil(count($allComment) / $nbCommentOnPage) + 1;
+        $nbPages = ceil(count($allComment) / $nbCommentOnPage) - 1;
         $currentPage = $page;
 
         if ($page > $nbPages) {
@@ -42,7 +46,7 @@ class AccountController extends AbstractController
 
         return $this->render('account/dashboard.html.twig', [
             'tricks' => $this->getUser()->getTricks(),
-            'comments' => $commentRepo->findBy(['user' => $this->getUser()->getId()], ['dateCreation' => 'DESC'], $nbCommentOnPage, $page - 1),
+            'comments' => $commentRepo->findBy(['user' => $this->getUser()->getId()], ['id' => 'DESC'], $nbCommentOnPage, $offset),
             'nbPages' => $nbPages,
             'currentPage' => $currentPage,
         ]);
