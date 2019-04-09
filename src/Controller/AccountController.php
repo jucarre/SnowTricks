@@ -59,7 +59,7 @@ class AccountController extends AbstractController
     public function loadMoreUserComment(CommentRepository $commentRepo, $comment = 10)
     {
         return $this->render('account/load_more_user_comment.html.twig', [
-                'comments' => $commentRepo->findBy(['user' => $this->getUser()->getId()], ['dateCreation' => 'DESC'], 10, $comment),
+                'comments' => $commentRepo->findBy(['user' => $this->getUser()->getId()], ['dateCreation' => 'DESC'],$nbCommentOnPage , $comment),
                 'comment' => $comment
             ]
         );

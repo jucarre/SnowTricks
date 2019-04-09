@@ -161,16 +161,16 @@
                                                                     <a class="page-link" href="{{ path('account', { 'page': 0 }) }}">début</a>
                                                                 </li>
                                                             {% endif %}
-                                                            {% for i in 1..nbPages %}
-                                                                {% if 0 == (currentPage - nearbyPagesLimit) - loop.index %} {# dot before #}
+                                                            {% for i in 0..nbPages %}
+                                                                {% if 0 == (currentPage - nearbyPagesLimit) - loop.index0 %} {# dot before #}
                                                                     <li class="page-item disabled"><a class="page-link" href="#">...</a></li>
-                                                                {% elseif 0 == (currentPage + nearbyPagesLimit) - loop.index %} {# dot after #}
+                                                                {% elseif 0 == (currentPage + nearbyPagesLimit) - loop.index0 %} {# dot after #}
                                                                     <li class="page-item disabled"><a class="page-link" href="#">...</a></li>
-                                                                {% elseif 0 < (currentPage - nearbyPagesLimit) - loop.index %} {# hide all before #}
-                                                                {% elseif 0 > (currentPage + nearbyPagesLimit) - loop.index %} {# hide all after #}
+                                                                {% elseif 0 < (currentPage - nearbyPagesLimit) - loop.index0 %} {# hide all before #}
+                                                                {% elseif 0 > (currentPage + nearbyPagesLimit) - loop.index0 %} {# hide all after #}
                                                                 {% else %}
-                                                                    <li class="page-item {% if currentPage == loop.index %}active {% endif %}">
-                                                                        <a class="page-link" href="{{ path('account', { 'page': loop.index }) }}">{{ loop.index }}</a>
+                                                                    <li class="page-item {% if currentPage == loop.index0 %}active {% endif %}">
+                                                                        <a class="page-link" href="{{ path('account', { 'page': loop.index0 }) }}">{{ loop.index }}</a>
                                                                     </li>
                                                                 {% endif %}
                                                             {% endfor %}
