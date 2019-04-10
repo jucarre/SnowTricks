@@ -37,24 +37,26 @@ class HomeController extends AbstractController
     }
 
     /**
-     * @Route("/trick/{id}", name="show")
+     * @Route("/trick/{id}/{page?<\d+>1}", name="show")
      */
-    public function show(Trick $trick, Request $request, EntityManagerInterface $manager, CommentRepository $commentRepo)
+    public function show(Trick $trick, Request $request, EntityManagerInterface $manager, CommentRepository $commentRepo, $page = 1)
     {
         // pagination de commentaire
-        $nbCommentOnPage = 5;
-        if (!$page = $request->query->get('page')) {
-            $page = 0;
+        $limit = 5;
+        if(is_null($page) || $page < 1) {
+            $page = 1;
         }
-        $offset = $page * $nbCommentOnPage;
 
         $allComment = $commentRepo->findBy(['trick' => $trick->getId()], ['dateCreation' => 'DESC']);
         $nbComment = count($allComment);
-        $nbPages = ceil($nbComment / $nbCommentOnPage)-1;
+        $nbPages = ceil($nbComment / $limit);
 
         if ($page > $nbPages) {
             throw $this->createNotFoundException("cette page n'existe pas");
         }
+
+        $query = $commentRepo->findAllCommentTrick($page, $limit, $trick);
+
         // Traiment de formulaire pour les commentaire
         $comment = new Comment();
 
@@ -86,7 +88,7 @@ class HomeController extends AbstractController
         return $this->render('home/trick.html.twig', [
                 'form' => $form->createView(),
                 'trick' => $trick,
-                'comments' => $commentRepo->findBy(['trick' => $trick->getId()], ['dateCreation' => 'DESC'], $nbCommentOnPage, $offset),
+                'comments' => $query,
                 'nbPages' => $nbPages,
                 'currentPage' => $page,
             ]

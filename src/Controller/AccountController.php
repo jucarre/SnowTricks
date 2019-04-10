@@ -23,46 +23,38 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class AccountController extends AbstractController
 {
     /**
-     * @Route("user/account/dashboard", name="account")
+     * @Route("user/account/dashboard/{page?<\d+>1}", name="account")
      * @IsGranted("ROLE_USER")
      */
-    public function index(CommentRepository $commentRepo, Request $request)
+    public function index(CommentRepository $commentRepo, $page = 1)
     {
-        $nbCommentOnPage = 10;
-
-        if (!$page = $request->query->get('page')) {
-            $page = 0;
+        $limit = 10;
+        if(is_null($page) || $page < 1) {
+            $page = 1;
         }
-        $offset = $page * $nbCommentOnPage;
 
         $allComment = $commentRepo->findBy(['user' => $this->getUser()->getId()], ['dateCreation' => 'DESC']);
-
         $nbComment = count($allComment);
-        $nbPages = ceil($nbComment / $nbCommentOnPage)-1;
+        $nbPages = ceil($nbComment / $limit);
 
         if ($page > $nbPages) {
             throw $this->createNotFoundException("cette page n'existe pas");
         }
 
+        $userId = $this->getUser()->getId();
+        $query = $commentRepo->findAllCommentUser($page, $limit, $userId);
+/*
+        if ($page > $nbPages) {
+            throw $this->createNotFoundException("cette page n'existe pas");
+        }*/
+
         return $this->render('account/dashboard.html.twig', [
             'tricks' => $this->getUser()->getTricks(),
-            'comments' => $commentRepo->findBy(['user' => $this->getUser()->getId()], ['dateCreation' => 'DESC'], $nbCommentOnPage, $offset),
+            'comments' => $query,
             'nbPages' => $nbPages,
             'currentPage' => $page,
         ]);
 
-    }
-
-    /**
-     * @Route("user/account/dashboard/{comment}", name="user_comment" , requirements={"comment": "\d+"} )
-     */
-    public function loadMoreUserComment(CommentRepository $commentRepo, $comment = 10)
-    {
-        return $this->render('account/load_more_user_comment.html.twig', [
-                'comments' => $commentRepo->findBy(['user' => $this->getUser()->getId()], ['dateCreation' => 'DESC'],$nbCommentOnPage , $comment),
-                'comment' => $comment
-            ]
-        );
     }
 
     /**

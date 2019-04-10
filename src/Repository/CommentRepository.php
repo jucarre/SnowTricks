@@ -3,7 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Comment;
+use App\Entity\Trick;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
@@ -19,9 +21,36 @@ class CommentRepository extends ServiceEntityRepository
         parent::__construct($registry, Comment::class);
     }
 
-     /**
-      * @return Comment[] Returns an array of Comment objects
-      */
+    public function findAllCommentTrick($page, $limit, Trick $trick)
+    {
+        $qb = $this->_em->createQueryBuilder('c');
+        $qb->select('c')
+            ->from('App\Entity\Comment', 'c')
+            ->leftJoin('c.trick', 'a')
+            ->where('a.id =:id')
+            ->orderBy('c.dateCreation', 'DESC')
+            ->setParameter('id', $trick->getId())
+            ->setFirstResult(($page - 1) * $limit)
+            ->setMaxResults($limit);
+
+        return new Paginator($qb);
+    }
+
+    public function findAllCommentUser($page, $limit, $userId)
+    {
+        $qb = $this->_em->createQueryBuilder('c');
+        $qb->select('c')
+            ->from('App\Entity\Comment', 'c')
+            ->leftJoin('c.user', 'a')
+            ->where('a.id =:id')
+            ->orderBy('c.dateCreation', 'DESC')
+            ->setParameter('id', $userId)
+            ->setFirstResult(($page - 1) * $limit)
+            ->setMaxResults($limit);
+
+        return new Paginator($qb);
+    }
+
     /*
     public function findByExampleField($value)
     {

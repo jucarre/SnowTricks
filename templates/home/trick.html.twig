@@ -11,11 +11,11 @@
 {% block content %}
     <div class="background-image"
          style="background-image: url({{ asset('uploads/pictures/'~ trick.pictureDefault.name) }});
-                 -webkit-filter: blur(5px);
-                 -moz-filter: blur(5px);
-                 -o-filter: blur(5px);
-                 -ms-filter: blur(5px);
-                 filter: blur(5px);
+                 -webkit-filter: blur(6px);
+                 -moz-filter: blur(6px);
+                 -o-filter: blur(6px);
+                 -ms-filter: blur(6px);
+                 filter: blur(6px);
                  position: fixed;
                  width: 100%;
                  height: 100%;
@@ -54,7 +54,7 @@
                     <div class="row mb-5 "id="rowPictureAndVideo">
                         {% for picture in trick.pictures %}
                             <div class="col-md-3 col-sm-5 portfolio-item">
-                                <a class="portfolio-link" data-toggle="modal"
+                                <a class="portfolio-link"
                                    href="{{ asset('uploads/pictures/'~ picture.name) }}">
                                     <div class="portfolio-hover">
                                         <div class="portfolio-hover-content">
@@ -216,21 +216,21 @@
                                     <div class="container">
                                         <nav aria-label="">
                                             <ul class="pagination justify-content-center">
-                                                {% if currentPage != 0 %}
+                                                {% if currentPage != 1 %}
                                                     <li class="page-item">
-                                                        <a class="page-link" href="{{ path('show', {'id': trick.id,'page': 0 }) }}">début</a>
+                                                        <a class="page-link" href="{{ path('show', {'id': trick.id,'page': 1 }) }}">début</a>
                                                     </li>
                                                 {% endif %}
-                                                {% for i in 0..nbPages %}
-                                                    {% if 0 == (currentPage - nearbyPagesLimit) - loop.index0 %} {# dot before #}
+                                                {% for i in 1..nbPages %}
+                                                    {% if 1 == (currentPage - nearbyPagesLimit) - loop.index %} {# dot before #}
                                                         <li class="page-item disabled"><a class="page-link" href="#">...</a></li>
-                                                    {% elseif 0 == (currentPage + nearbyPagesLimit) - loop.index0 %} {# dot after #}
+                                                    {% elseif 1 == (currentPage + nearbyPagesLimit) - loop.index %} {# dot after #}
                                                         <li class="page-item disabled"><a class="page-link" href="#">...</a></li>
-                                                    {% elseif 0 < (currentPage - nearbyPagesLimit) - loop.index0 %} {# hide all before #}
-                                                    {% elseif 0 > (currentPage + nearbyPagesLimit) - loop.index0 %} {# hide all after #}
+                                                    {% elseif 1 < (currentPage - nearbyPagesLimit) - loop.index %} {# hide all before #}
+                                                    {% elseif 1 > (currentPage + nearbyPagesLimit) - loop.index %} {# hide all after #}
                                                     {% else %}
-                                                        <li class="page-item {% if currentPage == loop.index0 %}active {% endif %}">
-                                                            <a class="page-link" href="{{ path('show', {'id': trick.id, 'page': loop.index0 }) }}">{{ loop.index }}</a>
+                                                        <li class="page-item {% if currentPage == loop.index %}active {% endif %}">
+                                                            <a class="page-link" href="{{ path('show', {'id': trick.id, 'page': loop.index }) }}">{{ loop.index }}</a>
                                                         </li>
                                                     {% endif %}
                                                 {% endfor %}
@@ -252,4 +252,13 @@
         </div>
     </section>
 
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+<script>
+    $("#showPictureAndVideo").click(function() {
+        $("#rowPictureAndVideo").show();
+        $("#showPictureAndVideo").hide();
+    });
+</script>
 {% endblock %}

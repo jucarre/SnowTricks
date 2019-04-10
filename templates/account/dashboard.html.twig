@@ -8,11 +8,11 @@
 {% block content %}
     <div class="background-image"
          style="background-image: url({{ asset('/uploads/pictures/snow-3.jpg') }});
-                 -webkit-filter: blur(5px);
-                 -moz-filter: blur(5px);
-                 -o-filter: blur(5px);
-                 -ms-filter: blur(5px);
-                 filter: blur(5px);
+                 -webkit-filter: blur(6px);
+                 -moz-filter: blur(6px);
+                 -o-filter: blur(6px);
+                 -ms-filter: blur(6px);
+                 filter: blur(6px);
                  position: fixed;
                  width: 100%;
                  height: 100%;
@@ -114,6 +114,7 @@
                                     <table class="table table-striped">
                                         <thead>
                                         <tr>
+                                            <th scope="col">id</th>
                                             <th scope="col">lien vers le trick</th>
                                             <th scope="col">date de création</th>
                                             <th scope="col">contenu</th>
@@ -122,9 +123,13 @@
                                         </tr>
                                         </thead>
                                         <tbody>
+
                                         {% for comment in comments %}
                                             <tr>
-                                                <th >
+                                                <th>
+                                                    <p>{{ comment.id }}</p>
+                                                </th>
+                                                <th>
                                                     <a href="{{ path('show', {'id': comment.trick.id}) }}">{{ comment.trick.id }}</a>
                                                 </th>
                                                 <th>{{ comment.dateCreation | date('d-m-Y') }}</th>
@@ -156,21 +161,21 @@
                                                 <div class="container">
                                                     <nav aria-label="">
                                                         <ul class="pagination justify-content-center">
-                                                            {% if currentPage != 0 %}
+                                                            {% if currentPage != 1 %}
                                                                 <li class="page-item">
-                                                                    <a class="page-link" href="{{ path('account', { 'page': 0 }) }}">début</a>
+                                                                    <a class="page-link" href="{{ path('account', { 'page': 1 }) }}">Début</a>
                                                                 </li>
                                                             {% endif %}
-                                                            {% for i in 0..nbPages %}
-                                                                {% if 0 == (currentPage - nearbyPagesLimit) - loop.index0 %} {# dot before #}
+                                                            {% for i in 1..nbPages %}
+                                                                {% if 1 == (currentPage - nearbyPagesLimit) - loop.index %} {# dot before #}
                                                                     <li class="page-item disabled"><a class="page-link" href="#">...</a></li>
-                                                                {% elseif 0 == (currentPage + nearbyPagesLimit) - loop.index0 %} {# dot after #}
+                                                                {% elseif 1 == (currentPage + nearbyPagesLimit) - loop.index %} {# dot after #}
                                                                     <li class="page-item disabled"><a class="page-link" href="#">...</a></li>
-                                                                {% elseif 0 < (currentPage - nearbyPagesLimit) - loop.index0 %} {# hide all before #}
-                                                                {% elseif 0 > (currentPage + nearbyPagesLimit) - loop.index0 %} {# hide all after #}
+                                                                {% elseif 1 < (currentPage - nearbyPagesLimit) - loop.index %} {# hide all before #}
+                                                                {% elseif 1 > (currentPage + nearbyPagesLimit) - loop.index %} {# hide all after #}
                                                                 {% else %}
-                                                                    <li class="page-item {% if currentPage == loop.index0 %}active {% endif %}">
-                                                                        <a class="page-link" href="{{ path('account', { 'page': loop.index0 }) }}">{{ loop.index }}</a>
+                                                                    <li class="page-item {% if currentPage == loop.index %}active {% endif %}">
+                                                                        <a class="page-link" href="{{ path('account', { 'page': loop.index })  }}">{{ loop.index }}</a>
                                                                     </li>
                                                                 {% endif %}
                                                             {% endfor %}
