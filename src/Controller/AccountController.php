@@ -37,7 +37,7 @@ class AccountController extends AbstractController
         $nbComment = count($allComment);
         $nbPages = ceil($nbComment / $limit);
 
-        if ($page > $nbPages) {
+        if ($page > $nbPages & $nbPages) {
             throw $this->createNotFoundException("cette page n'existe pas");
         }
 

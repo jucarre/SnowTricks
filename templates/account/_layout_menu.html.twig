@@ -7,7 +7,7 @@
             <a href="{{ path('update_password') }}"
                class="list-group-item list-group-item-action {{ app.request.get('_route') == 'update_password' ? 'active' }}">
                 Mot de passe</a>
-            {% if app.user.profilePicture.id %}
+            {% if app.user.profilePicture.id is defined %}
                 <a href="{{ path('edit_picture_user' )}}"
                    class="list-group-item list-group-item-action {{ app.request.get('_route') == 'edit_picture_user' ? 'active' }}">
                     Photo profile</a>

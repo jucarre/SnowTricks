@@ -57,6 +57,19 @@ class UserFixtures extends Fixture
 
         $manager->persist($user2);
 
+        $user3 = new User;
+
+        $user3->setEmail('bob@bob.fr')
+            ->setPseudo('Bob')
+            ->setRoles(['ROLE_USER'])
+            ->setEnable(true)
+            ->setPassword($newPassword)
+            ->setProfilePicture($this->getReference('profilePicture-1'))
+        ;
+
+        $this->addReference('user-3', $user3);
+
+        $manager->persist($user3);
     }
 
     public function getDependencies()

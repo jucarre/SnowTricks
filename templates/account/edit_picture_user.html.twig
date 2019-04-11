@@ -35,7 +35,7 @@
                                 <div class="card-text">
                                     <div class="form-group">
                                         <h3 class="mb-5 mt-4">Photo de profil
-                                            {% if form.vars.value.pathPicture is defined %}
+                                            {% if app.user.profilePicture is not defined %}
                                             <img class="float-right mr-1 rounded-circle embed-responsive"
                                                  src="{{ asset('uploads/pictures/'~ form.vars.value.pathPicture) }}"
                                                  style="max-width: 65px;"

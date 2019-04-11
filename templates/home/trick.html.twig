@@ -115,7 +115,7 @@
                             <ul class="list-unstyled">
                                 <li class="media mb-3">
                                     {% if app.user %}
-                                    {% if app.user.profilePicture.pathPicture %}
+                                    {% if app.user.profilePicture.pathPicture is defined %}
                                         <img src="{{ asset('uploads/pictures/'~app.user.profilePicture.pathPicture) }}"
                                              class="mr-3 rounded-circle embed-responsive" style="max-width: 65px;"
                                              alt="...">
@@ -168,7 +168,7 @@
                             <ul class="list-unstyled">
                                 {% for comment in comments %}
                                     <li class="media mb-3">
-                                        {% if comment.user.profilePicture.pathPicture %}
+                                        {% if comment.user.profilePicture.pathPicture is defined %}
                                             <img src="{{ asset('uploads/pictures/'~comment.user.profilePicture.pathPicture) }}"
                                                  class="mr-3 rounded-circle embed-responsive" style="max-width: 65px;"
                                                  alt="photo de profile">
