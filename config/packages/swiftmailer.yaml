@@ -1,7 +1,11 @@
-swiftmailer:
-    url: '%env(MAILER_URL)%'
-    spool: { type: 'memory' }
-
-## Swiftmailer Configuration
 #swiftmailer:
-#    transport: mail
+#    url: '%env(MAILER_URL)%'
+#    spool: { type: 'memory' }
+
+# Swiftmailer Configuration
+swiftmailer:
+    transport: mail
+    host: auth.smtp.1and1.fr
+    port: 587
+    username: '%env(MAILER_USER)%'
+    password: '%env(MAILER_PASSWORD)%'

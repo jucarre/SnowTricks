@@ -20,7 +20,7 @@ class TokenSendler
     public function sendToken(User $user, Token $token)
     {
         $message = (new \Swift_Message('Confirmez votre inscription'))
-            ->setFrom('noreply@rent-car.com')
+            ->setFrom('contact@symfony.juliencarre.fr')
             ->setTo($user->getEmail())
             ->setBody(
                 $this->twig->render(
@@ -30,13 +30,13 @@ class TokenSendler
                 'text/html'
             );
 
-        $this->mailer->send($message);
+        $this->get('mailer')->send($message);
     }
 
     public function forGotToken(User $user, Token $token)
     {
         $message = (new \Swift_Message('Réinitialisez votre mot de passe'))
-            ->setFrom('noreply@rent-car.com')
+            ->setFrom('contact@symfony.juliencarre.fr')
             ->setTo($user->getEmail())
             ->setBody(
                 $this->twig->render(
@@ -46,7 +46,7 @@ class TokenSendler
                 'text/html'
             );
 
-        $this->mailer->send($message);
+        $this->get('mailer')->send($message);
     }
 
 }
