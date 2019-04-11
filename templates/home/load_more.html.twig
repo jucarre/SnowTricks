@@ -1,5 +1,8 @@
 {% for trick in tricks %}
-    <div class="col-md-3 col-sm-6 mt-2">
+    <div class="col-md-3 col-sm-6 trickparent mt-2" data-idtrick="{{ trick.id }}"
+            {% if is_granted('DELETE', trick) %}
+        data-link="{{ path('delete_trick', {'id': trick.id}) }}"
+            {% endif %}>
         <div class="card card-home m-1 ">
         <a href="{{ path('show', {'id': trick.id}) }}">
             <img class="card-img-top" src="{{ asset('uploads/pictures/thumbnail/'~ trick.pictureDefault.name) }}" alt="">
