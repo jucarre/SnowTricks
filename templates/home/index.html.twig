@@ -21,7 +21,6 @@
 {% endblock %}
 
 {% block content %}
-    <!-- Portfolio Grid -->
     <section class="bg-light" id="portfolio">
         <div class="container">
             <div class="row">
@@ -31,65 +30,64 @@
             </div>
             <div class="row" id="trickList">
                 {% for trick in tricks %}
-                    <div class="col-md-3 col-sm-6 trickparent mt-2"
-                         data-idtrick="{{ trick.id }}"
-                            {% if is_granted('DELETE', trick) %}
-                        data-link="{{ path('delete_trick', {'id': trick.id}) }}"
-                            {% endif %}>
+                    <div class="col-md-3 col-sm-6 mt-2">
                         <div class="card card-home m-1">
-                        <a href="{{ path('show', {'id': trick.id}) }}">
-                            <img class="card-img-top" src="{{ asset('uploads/pictures/thumbnail/'~ trick.pictureDefault.name) }}"
-                                 alt="">
-                        </a>
+                            <a href="{{ path('show', {'id': trick.id}) }}">
+                                <img class="card-img-top"
+                                     src="{{ asset('uploads/pictures/thumbnail/'~ trick.pictureDefault.name) }}"
+                                     alt="">
+                            </a>
                             <div class="card-body">
-                            <h6>{{ trick.name }}
-                                {% if is_granted('EDIT', trick) %}
-                                    <a class="suppr-trick float-right "
-                                       href="{{ path('edit_trick', {'id': trick.id}) }}">
-                                        <i class="fas fa-pencil-alt"></i>
-                                    </a>
-                                {% endif %}
-                                {% if is_granted('DELETE', trick) %}
-                                    <a class="suppr-trick float-right mr-2" href="#">
-                                        <i class="fas fa-trash-alt"></i>
-                                    </a>
-                                {% endif %}
-                            </h6>
+                                <h6>{{ trick.name }}
+                                    {% if is_granted('EDIT', trick) %}
+                                        <a class="suppr-trick float-right "
+                                           href="{{ path('edit_trick', {'id': trick.id}) }}">
+                                            <i class="fas fa-pencil-alt"></i>
+                                        </a>
+                                    {% endif %}
+                                    {% if is_granted('DELETE', trick) %}
+                                        <a class="suppr-trick float-right mr-2"
+                                           href="{{ path('delete_trick', {'id': trick.id}) }}"
+                                           onclick="return confirm(`Comfirmer votre action ==>>> Voulez-vous supprimer votre figure : {{ trick.name }} ?`);">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </a>
+                                    {% endif %}
+                                </h6>
                             </div>
                         </div>
                     </div>
                 {% endfor %}
-                <div class="modal" tabindex="-1" role="dialog">
-                    <div class="modal-dialog" style="margin-top: 100px; display: none;"
-                         role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title">Comfirmer votre action</h5>
-                                <button type="button" class="close close-spe"
-                                        data-dismiss="modal"
-                                        aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
+            </div>
+            {#<div class="modal" tabindex="-1" role="dialog">
+                <div class="modal-dialog" style="margin-top: 100px; display: none;"
+                     role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Comfirmer votre action</h5>
+                            <button type="button" class="close close-spe"
+                                    data-dismiss="modal"
+                                    aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Voulez-vous supprimer votre figure id:
+                                <spam class="info-data"></spam>
+                            </p>
+                        </div>
+                        <div class="modal-footer">
+                            <a class="link-delete" href="">
+                                <button type="button" class="btn btn-primary">
+                                    supprimer
                                 </button>
-                            </div>
-                            <div class="modal-body">
-                                <p>Voulez-vous supprimer votre figure id:
-                                    <spam class="info-data"></spam>
-                                </p>
-                            </div>
-                            <div class="modal-footer">
-                                <a class="link-delete" href="">
-                                    <button type="button" class="btn btn-primary">
-                                        supprimer
-                                    </button>
-                                </a>
-                                <button type="button" class="btn btn-secondary close-spe"
-                                        data-dismiss="modal">Annuler
-                                </button>
-                            </div>
+                            </a>
+                            <button type="button" class="btn btn-secondary close-spe"
+                                    data-dismiss="modal">Annuler
+                            </button>
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>#}
             <div class="row mt-3">
                 <a class="m-auto" id="loadMoreBTN">
                     <button class="btn btn-primary ">Voir plus</button>
@@ -128,32 +126,5 @@
         }
 
         document.getElementById('loadMoreBTN').addEventListener('click', loadMore);
-
-        $(function () {
-            //Comfirmation de supprétion(Boutton 'OUI' ou 'NON' )
-            $('.suppr-trick').click(function () {
-                event.preventDefault();
-
-                var idData = $(this).parents('.trickparent').data('idtrick');
-                $('.info-data').text(idData);
-
-                var idLink = $(this).parents('.trickparent').data('link');
-
-                $('.link-delete').attr('href', idLink);
-
-                $('.modal').fadeIn(500, function () {
-
-                    $('.modal-dialog').slideDown(300);
-
-                });
-                // Fermeture
-                $('.close-spe').click(function () {
-
-                    $('.modal').fadeOut(500);
-                    $('.modal-dialog').hide();
-
-                });
-            })
-        });
     </script>
 {% endblock %}
