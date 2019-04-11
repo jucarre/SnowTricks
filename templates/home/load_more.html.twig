@@ -1,14 +1,10 @@
 {% for trick in tricks %}
-    <div class="col-md-3 col-sm-6 portfolio-item">
-        <a class="portfolio-link" href="{{ path('show', {'id': trick.id}) }}">
-            <div class="portfolio-hover">
-                <div class="portfolio-hover-content">
-                    <i class="fas fa-plus fa-3x"></i>
-                </div>
-            </div>
-            <img class="img-fluid" src="{{ asset('uploads/pictures/'~ trick.pictureDefault.name) }}" alt="">
+    <div class="col-md-3 col-sm-6 mt-2">
+        <div class="card card-home m-1 ">
+        <a href="{{ path('show', {'id': trick.id}) }}">
+            <img class="card-img-top" src="{{ asset('uploads/pictures/thumbnail/'~ trick.pictureDefault.name) }}" alt="">
         </a>
-        <div class="portfolio-caption">
+            <div class="card-body">
             <h6>{{ trick.name }}
                 {% if is_granted('EDIT', trick) %}
                     <a href="{{ path('edit_trick', {'id': trick.id}) }}">
@@ -21,7 +17,7 @@
                     </a>
                 {% endif %}
             </h6>
-
+            </div>
         </div>
     </div>
 {% endfor %}

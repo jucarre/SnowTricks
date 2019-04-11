@@ -47,11 +47,13 @@ class HomeController extends AbstractController
             $page = 1;
         }
 
-        $allComment = $commentRepo->findBy(['trick' => $trick->getId()], ['dateCreation' => 'DESC']);
+        if(!$allComment = $commentRepo->findBy(['trick' => $trick->getId()], ['dateCreation' => 'DESC'])){
+            $nbPages = NULL;
+        }
         $nbComment = count($allComment);
         $nbPages = ceil($nbComment / $limit);
 
-        if ($page > $nbPages) {
+        if ($page > $nbPages & $nbPages) {
             throw $this->createNotFoundException("cette page n'existe pas");
         }
 

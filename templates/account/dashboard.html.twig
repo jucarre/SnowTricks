@@ -47,7 +47,7 @@
                                                     <div class="card">
                                                         <a href="{{ path('show', {'id': trick.id}) }}">
                                                             <img class="card-img-top"
-                                                                 src="{{ asset('uploads/pictures/'~ trick.pictureDefault.name) }}">
+                                                                 src="{{ asset('uploads/pictures/thumbnail/'~ trick.pictureDefault.name) }}">
                                                         </a>
                                                         <div class="card-body">
                                                             <p>{{ trick.id }} : {{ trick.name }}</p>
@@ -111,84 +111,87 @@
                             <div class="card-body">
                                 <div class="card-text mb-3">
                                     <h3 class="mb-5">Vos commentaires :</h3>
-                                    <table class="table table-striped">
-                                        <thead>
-                                        <tr>
-                                            <th scope="col">id</th>
-                                            <th scope="col">lien vers le trick</th>
-                                            <th scope="col">date de création</th>
-                                            <th scope="col">contenu</th>
-                                            <th scope="col"><i class="fas fa-trash-alt"></i></th>
-
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-
-                                        {% for comment in comments %}
+                                    <div class="container" style="width:auto;overflow:auto">
+                                        <table class="table table-striped">
+                                            <thead>
                                             <tr>
-                                                <th>
-                                                    <p>{{ comment.id }}</p>
-                                                </th>
-                                                <th>
-                                                    <a href="{{ path('show', {'id': comment.trick.id}) }}">{{ comment.trick.id }}</a>
-                                                </th>
-                                                <th>{{ comment.dateCreation | date('d-m-Y') }}</th>
-                                                <th>{{ comment.content }}</th>
-                                                <th>
-                                                    <a href="{{ path('delete_comment', {'id': comment.id}) }}">
-                                                        <i class="fas fa-trash-alt"></i>
-                                                    </a>
-                                                </th>
+                                                <th scope="col">lien vers le trick</th>
+                                                <th scope="col">date de création</th>
+                                                <th scope="col">contenu</th>
+                                                <th scope="col"><i class="fas fa-trash-alt"></i></th>
+
                                             </tr>
-                                        {% endfor %}
-                                        </tbody>
-                                    </table>
+                                            </thead>
+                                            <tbody>
 
-                                        {#
-                                                Parameters:
-                                                  * nbPages (int): number of pages
-                                                  * currentPage (int): current pages
-                                                  * url (string): route name & query (string): route parameter
-                                                    ex: list/page-5 (5 = page )
-                                         #}
+                                            {% for comment in comments %}
+                                                <tr>
+                                                    <th scope="row">
+                                                        <a href="{{ path('show', {'id': comment.trick.id}) }}">{{ comment.trick.id }}</a>
+                                                    </th>
+                                                    <th>{{ comment.dateCreation | date('d-m-Y') }}</th>
+                                                    <th>{{ comment.content }}</th>
+                                                    <th>
+                                                        <a href="{{ path('delete_comment', {'id': comment.id}) }}">
+                                                            <i class="fas fa-trash-alt"></i>
+                                                        </a>
+                                                    </th>
+                                                </tr>
+                                            {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
 
-                                        {% spaceless %}
-                                            {% if nbPages > 1 %}
+                                    {#
+                                            Parameters:
+                                              * nbPages (int): number of pages
+                                              * currentPage (int): current pages
+                                              * url (string): route name & query (string): route parameter
+                                                ex: list/page-5 (5 = page )
+                                     #}
 
-                                                {# Number of page around current page+1 #}
-                                                {% set nearbyPagesLimit = 3 %}
+                                    {% spaceless %}
+                                        {% if nbPages > 1 %}
 
-                                                <div class="container">
-                                                    <nav aria-label="">
-                                                        <ul class="pagination justify-content-center">
-                                                            {% if currentPage != 1 %}
-                                                                <li class="page-item">
-                                                                    <a class="page-link" href="{{ path('account', { 'page': 1 }) }}">Début</a>
+                                            {# Number of page around current page+1 #}
+                                            {% set nearbyPagesLimit = 3 %}
+
+                                            <div class="container">
+                                                <nav aria-label="">
+                                                    <ul class="pagination justify-content-center">
+                                                        {% if currentPage != 1 %}
+                                                            <li class="page-item">
+                                                                <a class="page-link"
+                                                                   href="{{ path('account', { 'page': 1 }) }}">Début</a>
+                                                            </li>
+                                                        {% endif %}
+                                                        {% for i in 1..nbPages %}
+                                                            {% if 1 == (currentPage - nearbyPagesLimit) - loop.index %} {# dot before #}
+                                                                <li class="page-item disabled"><a class="page-link"
+                                                                                                  href="#">...</a></li>
+                                                            {% elseif 1 == (currentPage + nearbyPagesLimit) - loop.index %} {# dot after #}
+                                                                <li class="page-item disabled"><a class="page-link"
+                                                                                                  href="#">...</a></li>
+                                                            {% elseif 1 < (currentPage - nearbyPagesLimit) - loop.index %} {# hide all before #}
+                                                            {% elseif 1 > (currentPage + nearbyPagesLimit) - loop.index %} {# hide all after #}
+                                                            {% else %}
+                                                                <li class="page-item {% if currentPage == loop.index %}active {% endif %}">
+                                                                    <a class="page-link"
+                                                                       href="{{ path('account', { 'page': loop.index }) }}">{{ loop.index }}</a>
                                                                 </li>
                                                             {% endif %}
-                                                            {% for i in 1..nbPages %}
-                                                                {% if 1 == (currentPage - nearbyPagesLimit) - loop.index %} {# dot before #}
-                                                                    <li class="page-item disabled"><a class="page-link" href="#">...</a></li>
-                                                                {% elseif 1 == (currentPage + nearbyPagesLimit) - loop.index %} {# dot after #}
-                                                                    <li class="page-item disabled"><a class="page-link" href="#">...</a></li>
-                                                                {% elseif 1 < (currentPage - nearbyPagesLimit) - loop.index %} {# hide all before #}
-                                                                {% elseif 1 > (currentPage + nearbyPagesLimit) - loop.index %} {# hide all after #}
-                                                                {% else %}
-                                                                    <li class="page-item {% if currentPage == loop.index %}active {% endif %}">
-                                                                        <a class="page-link" href="{{ path('account', { 'page': loop.index })  }}">{{ loop.index }}</a>
-                                                                    </li>
-                                                                {% endif %}
-                                                            {% endfor %}
-                                                            {% if currentPage != nbPages %}
-                                                                <li class="page-item">
-                                                                    <a class="page-link" href="{{ path('account', { 'page': nbPages }) }}">Fin</a>
-                                                                </li>
-                                                            {% endif %}
-                                                        </ul>
-                                                    </nav>
-                                                </div>
-                                            {% endif %}
-                                        {% endspaceless %}
+                                                        {% endfor %}
+                                                        {% if currentPage != nbPages %}
+                                                            <li class="page-item">
+                                                                <a class="page-link"
+                                                                   href="{{ path('account', { 'page': nbPages }) }}">Fin</a>
+                                                            </li>
+                                                        {% endif %}
+                                                    </ul>
+                                                </nav>
+                                            </div>
+                                        {% endif %}
+                                    {% endspaceless %}
 
                                 </div>
                             </div>

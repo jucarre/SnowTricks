@@ -16,6 +16,9 @@ class FileUploader
 
     public function upload(UploadedFile $file)
     {
+        if ($file->guessExtension() == 'jpg') {
+            $file->guessExtension() == 'jpeg';
+        }
         $fileName = md5(uniqid()) . '.' . $file->guessExtension();
 
         try {
@@ -30,7 +33,8 @@ class FileUploader
     public function removeFile($oldFileName)
     {
         try {
-            unlink($this->getTargetDirectory().'/'.$oldFileName);
+            unlink($this->getTargetDirectory() . '/' . $oldFileName);
+            unlink($this->getTargetDirectory() . '/thumbnail/' . $oldFileName);
         } catch (FileException $e) {
 // ... handle exception if something happens during file upload
         }

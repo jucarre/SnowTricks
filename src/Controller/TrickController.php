@@ -11,6 +11,7 @@ use App\Form\VideoType;
 use App\Repository\PictureRepository;
 use App\Repository\VideoRepository;
 use App\Service\FileUploader;
+use App\Service\ImageResizer;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,6 +25,13 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
  */
 class TrickController extends AbstractController
 {
+    private $targetDirectory;
+
+    public function __construct($targetDirectory)
+    {
+        $this->targetDirectory = $targetDirectory;
+    }
+
     /**
      * @Route("user/trick/add", name="add_trick")
      */
@@ -107,7 +115,7 @@ class TrickController extends AbstractController
     /**
      * @Route("user/trick/picture/add", name="add_picture")
      */
-    public function addPicture(EntityManagerInterface $manager, Request $request, FileUploader $fileUploader, PictureRepository $pictureRepo)
+    public function addPicture(EntityManagerInterface $manager, Request $request, FileUploader $fileUploader, ImageResizer $imageResizer,PictureRepository $pictureRepo)
     {
         $pictures = $pictureRepo->findBy(
             array(),
@@ -126,6 +134,8 @@ class TrickController extends AbstractController
             $file = $picture->getFile();
 
             $fileName = $fileUploader->upload($file);
+
+            $imageResizer->cropAndResizer($this->getTargetDirectory() . '/' . $fileName, $this->getTargetDirectory() . '/thumbnail/');
 
             $picture->setName($fileName);
 

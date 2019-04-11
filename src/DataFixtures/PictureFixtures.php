@@ -19,7 +19,7 @@ class PictureFixtures extends Fixture
 
             $picture = new Picture();
 
-            $picture->setName('snow-'.$a.'.jpg')
+            $picture->setName('snow-'.$a.'.jpeg')
                 ->setAlt($faker->name());
 
             $this->addReference('picture-' . $a, $picture);

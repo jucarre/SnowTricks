@@ -3,7 +3,7 @@
 {% block title %}Snow Tricks {% endblock %}
 {% block header %}
     <!-- Header -->
-    <header class="masthead " id="up-top" style=" background-image: url({{ asset('/uploads/pictures/snow-3.jpg') }});">
+    <header class="masthead " id="up-top" style=" background-image: url({{ asset('/uploads/pictures/snow-3.jpeg') }});">
         <div class="container">
             <div class="intro-text">
                 <div class="intro-lead-in">Bienvenue sur le plus gros site communautaire de tricks pour Snowboarder!
@@ -26,26 +26,22 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h2 class="section-heading text-uppercase mb-5">Les dernières publications :</h2>
+                    <h3 class="section-heading text-uppercase mb-5">Les dernières publications :</h3>
                 </div>
             </div>
             <div class="row" id="trickList">
                 {% for trick in tricks %}
-                    <div class="col-md-3 col-sm-6 portfolio-item trickparent"
+                    <div class="col-md-3 col-sm-6 trickparent mt-2"
                          data-idtrick="{{ trick.id }}"
                             {% if is_granted('DELETE', trick) %}
                         data-link="{{ path('delete_trick', {'id': trick.id}) }}"
                             {% endif %}>
-                        <a class="portfolio-link" href="{{ path('show', {'id': trick.id}) }}">
-                            <div class="portfolio-hover">
-                                <div class="portfolio-hover-content">
-                                    <i class="fas fa-link fa-3x"></i>
-                                </div>
-                            </div>
-                            <img class="img-fluid" src="{{ asset('uploads/pictures/'~ trick.pictureDefault.name) }}"
+                        <div class="card card-home m-1">
+                        <a href="{{ path('show', {'id': trick.id}) }}">
+                            <img class="card-img-top" src="{{ asset('uploads/pictures/thumbnail/'~ trick.pictureDefault.name) }}"
                                  alt="">
                         </a>
-                        <div class="portfolio-caption">
+                            <div class="card-body">
                             <h6>{{ trick.name }}
                                 {% if is_granted('EDIT', trick) %}
                                     <a class="suppr-trick float-right "
@@ -59,7 +55,7 @@
                                     </a>
                                 {% endif %}
                             </h6>
-
+                            </div>
                         </div>
                     </div>
                 {% endfor %}
@@ -94,7 +90,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
+            <div class="row mt-3">
                 <a class="m-auto" id="loadMoreBTN">
                     <button class="btn btn-primary ">Voir plus</button>
                 </a>

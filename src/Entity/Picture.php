@@ -35,8 +35,8 @@ class Picture
      *     minHeightMessage = "L'image est trop petit, hauteur minimun: 200",
      *     maxWidth = 4000,
      *     maxWidthMessage = "L'image est trop grande, largeur max:4000",
-     *     maxHeight = 2000,
-     *     maxHeightMessage ="L'image est trop grande, hauteur max:2000"
+     *     maxHeight = 3000,
+     *     maxHeightMessage ="L'image est trop grande, hauteur max:3000"
      * )
      */
     private $file;
