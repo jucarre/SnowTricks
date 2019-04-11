@@ -30,7 +30,7 @@ class TokenSendler
                 'text/html'
             );
 
-        $this->get('mailer')->send($message);
+        $this->mailer->send($message);
     }
 
     public function forGotToken(User $user, Token $token)
@@ -46,7 +46,7 @@ class TokenSendler
                 'text/html'
             );
 
-        $this->get('mailer')->send($message);
+        $this->mailer->send($message);
     }
 
 }
