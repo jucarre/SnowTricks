@@ -135,7 +135,7 @@ class TrickController extends AbstractController
 
             $fileName = $fileUploader->upload($file);
 
-            $imageResizer->cropAndResizer($this->getTargetDirectory() . '/' . $fileName, $this->getTargetDirectory() . '/thumbnail/');
+            $imageResizer->cropAndResizer($this->targetDirectory . '/' . $fileName, $this->targetDirectory . '/thumbnail/');
 
             $picture->setName($fileName);
 
