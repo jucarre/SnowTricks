@@ -1,6 +1,6 @@
 # SnowTricks
 
-### Openclassrooms / Projet 6 (avec Symfony 4) : Développez de A à Z le site communautaire SnowTricks
+### Openclassrooms / Projet 6 ( Symfony 4 ) : Développez de A à Z le site communautaire SnowTricks
 [![Maintainability](https://api.codeclimate.com/v1/badges/adab98eec5399cb95d52/maintainability)](https://codeclimate.com/github/jucarre/SnowTricks/maintainability)
 
 ## Getting Started :metal:
