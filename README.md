@@ -3,7 +3,7 @@
 ### Openclassrooms / Projet 6 : Développez de A à Z le site communautaire SnowTricks
 [![Maintainability](https://api.codeclimate.com/v1/badges/adab98eec5399cb95d52/maintainability)](https://codeclimate.com/github/jucarre/SnowTricks/maintainability)
 
-This project was realized for my training with Openclassroom.
+This project was realized for my training with Openclassrooms.
 
 ## Pre-requisites
 
