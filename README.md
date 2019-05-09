@@ -10,8 +10,10 @@
 3. configure BDD connect on `.env` file
 4. (local) start the PHP server `php bin/console server:start`
 5. (optional) configure the SMTP if you want to activate the registration in `config/packages/swiftmailer.yaml`
-6. (for test) load fixtures into the database `php bin/console doctrine:fixtures:load`
-7. Account fixtures:
+6. Create database `php bin/console doctrine:database:create`
+7. Migrate table on database `php bin/console doctrine:migrations:migrate`
+8. (for test) load fixtures into the database `php bin/console doctrine:fixtures:load`
+9. Account fixtures:
       * Role : Admin
         * Email : superadmin@admin.fr
         * Pass : root
