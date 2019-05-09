@@ -16,7 +16,6 @@
 ###> symfony/web-server-bundle ###
 /.web-server-pid
 ###< symfony/web-server-bundle ###
-/public/uploads/pictures
 /config/packages/swiftmailer.yaml
 .env
 .DS_Store
